@@ -105,7 +105,31 @@ class Game:
                  pygame.display.update()
                  clock.tick(1)
                  break
+
+#############   THIS CODE MUST BE OPTIMIZED, SHOULDN'T HAVE TO CALL AGAIN DETECT_COLLISION FOR EACH ENEMY
+#############   MUST FIND A WAY TO PUT ALL THREE ENEMIES ON THE FIRST DETECT_COLLISSION PARAMETER FOR BODY                
+            elif player_character.detect_collision(enemy_1):
+                 is_game_over = True
+                 did_win = False
                  
+                 text = font.render("You lose", True, BLACK_COLOR)
+                 self.game_screen.blit(text, (300, 350))
+                 pygame.display.update()
+                 clock.tick(1)
+                 break
+
+            elif player_character.detect_collision(enemy_2):
+                 is_game_over = True
+                 did_win = False
+                 
+                 text = font.render("You lose", True, BLACK_COLOR)
+                 self.game_screen.blit(text, (300, 350))
+                 pygame.display.update()
+                 clock.tick(1)
+                 break
+###############################################################################################
+
+                
             elif player_character.detect_collision(treasure):
                  is_game_over = True
                  did_win = True
