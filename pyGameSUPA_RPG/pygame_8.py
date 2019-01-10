@@ -38,7 +38,8 @@ class Game:
     def run_game_loop(self, level_speed):
         is_game_over = False
         did_win = False
-        direction = 0
+        directionUp = 0
+        directionDown = 0
 
         player_character = PlayerCharacter("player.png", 375, 700, 50, 50)
 
@@ -63,12 +64,18 @@ class Game:
 
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_UP:
-                        direction = 1
+                        directionUp = 1
                     elif event.key == pygame.K_DOWN:
-                        direction = -1
+                        directionUp = -1
+                    elif event.key == pygame.K_RIGHT:
+                        directionDown = -1
+                    elif event.key ==pygame.K_LEFT:
+                        directionDown = 1
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
-                        direction = 0
+                        directionUp = 0
+                    elif event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
+                        directionDown = 0
                 print(event)
 
 
@@ -77,7 +84,7 @@ class Game:
 
             treasure.draw(self.game_screen)
             
-            player_character.move(direction, self.height)
+            player_character.move(directionUp, directionDown, self.height)
             player_character.draw(self.game_screen)
 
             enemy_0.move(self.width)
@@ -170,11 +177,16 @@ class PlayerCharacter(GameObject):
     def __init__(self, image_path, x, y, width, height):
         super().__init__(image_path, x, y, width, height)
 
-    def move(self, direction, max_height):
-        if direction > 0:
+    def move(self, directionUp, directionDown, max_height):
+        if directionUp > 0:
             self.y_pos -= self.SPEED
-        elif direction < 0:
+        elif directionUp < 0:
             self.y_pos += self.SPEED
+        elif directionDown > 0:
+            self.x_pos -= self.SPEED
+        elif directionDown < 0:
+            self.x_pos += self.SPEED
+
             
         if self.y_pos >= max_height - 20:
             self.y_pos = max_height - 20
@@ -219,6 +231,7 @@ new_game = Game("background.png", SCREEN_TITLE, SCREEN_WIDTH, SCREEN_HEIGHT)
 new_game.run_game_loop(1)
 
 
-    
+
 pygame.quit()
 quit()
+
