@@ -52,6 +52,7 @@ class Game:
         
         enemy_2 = EnemyCharacter("enemy.png", 40, 150, 50, 50)
         enemy_2.SPEED *= level_speed -2
+
         
         treasure = GameObject("treasure.png", 375, 50, 50, 50)
         while not is_game_over:
@@ -97,7 +98,9 @@ class Game:
             if level_speed > 1.7:
                 enemy_2.move(self.width)
                 enemy_2.draw(self.game_screen)
-
+            if level_speed >= 2.5:
+                level_speed = 1
+###### Trigger function here that increases the game level
 
 
 
